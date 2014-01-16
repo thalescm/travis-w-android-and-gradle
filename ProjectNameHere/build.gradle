@@ -8,6 +8,8 @@ buildscript {
 }
 apply plugin: 'android'
 
+apply plugin: 'eclipse'
+
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 }
@@ -32,10 +34,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(System.console().readLine("\n\$ Enter keystore path: "))
-            storePassword System.console().readLine("\n\$ Enter keystore password: ")
-            keyAlias System.console().readLine("\n\$ Enter key alias: ")
-            keyPassword System.console().readLine("\n\$ Enter key password: ")
+            storeFile file("release.keystore")
+            storePassword "123456"
+            keyAlias "apptest"
+            keyPassword "123456"
         }
     }
     
