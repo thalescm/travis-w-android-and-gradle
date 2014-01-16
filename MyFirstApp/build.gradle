@@ -3,19 +3,17 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.4+'
+        classpath 'com.android.tools.build:gradle:0.4'
     }
 }
 apply plugin: 'android'
-
-apply plugin: 'eclipse'
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 18
     buildToolsVersion "19.0.1"
 
     sourceSets {
@@ -34,21 +32,16 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("release.keystore")
+            storeFile file("myfirstapp.keystore")
             storePassword "123456"
-            keyAlias "apptest"
+            keyAlias "testapp"
             keyPassword "123456"
         }
     }
-    
     buildTypes {
         release {
             signingConfig signingConfigs.release
         }
     }
-}
 
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.6'
 }
