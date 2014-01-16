@@ -1,8 +1,10 @@
 package com.example.myfirstapp;
 
+import com.example.myfirstapp.MyResponseHandler.ResourceParserHandler;
 import com.example.myfirstapp.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -11,7 +13,11 @@ import android.widget.TextView;
 import de.keyboardsurfer.android.widget.crouton.Configuration;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 
+import com.loopj.android.http.*;
+
 public class MainActivity extends Activity {
+	
+	private static AsyncHttpClient mClient = new AsyncHttpClient();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,27 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 
 		showError("My god, it works!");
+		
+		get("https://m.extra.com.br/catalogo/v1/departamentos", new RequestParams(), new ResourceParserHandler() {
+
+			@Override
+			public void onSuccess(Object resource) {
+				Log.v("ACTIVITY","GOT DATA");
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				Log.v("ACTIVITY","DIDINT GOT DATA");
+				
+			}
+
+			@Override
+			public void onFailure(Throwable e, String errorMessage) {
+				Log.v("ACTIVITY","DIDINT GOT DATA");
+				
+			}
+			
+		});
 		return true;
 	}
 
@@ -48,5 +75,10 @@ public class MainActivity extends Activity {
 
 	public void dismissCrouton() {
 		Crouton.cancelAllCroutons();
+	}
+	
+	public static void get(String url, RequestParams params, ResourceParserHandler responseHandler) {
+		
+		mClient.get(url, params, MyResponseHandler.getInstance(responseHandler));
 	}
 }
