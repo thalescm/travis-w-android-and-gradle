@@ -8,7 +8,7 @@ To fork this project, some configuration is needed.
 First of all: 
   - Install the android sdk: http://developer.android.com/sdk/index.html
 
-  - Add ANDROID_HOME to your enviroment variables. (the sdk directory)
+  - Add ANDROID_HOME to your enviroment variables (the sdk directory) or the sdk.dir to the project's local.properties
 
 
 Ok, now you're allright to start using the project.
