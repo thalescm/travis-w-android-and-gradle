@@ -1,12 +1,6 @@
 # Operating System Files
 
 *.DS_Store
-Thumbs.db
-*.sw?
-.#*
-*#
-*~
-*.sublime-*
 
 # Build Artifacts
 
@@ -25,10 +19,3 @@ local.properties
 .classpath
 .project
 .settings/
-
-# IntelliJ IDEA Files
-
-*.iml
-*.ipr
-*.iws
-*.idea
