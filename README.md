@@ -19,3 +19,10 @@ In your command line:
         ./gradlew <the task>
 
 See the results!
+
+Bibliography
+
+http://spring.io/guides/gs/gradle-android/
+
+http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Multi-project-setup
+
