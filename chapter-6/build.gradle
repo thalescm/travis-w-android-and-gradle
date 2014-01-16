@@ -1,0 +1,91 @@
+// note that we can have the hello task declared AFTER 
+// the intro task and still be able to depend on it
+
+defaultTasks 'intro'
+
+// The << operator is simply an alias for doLast.
+task intro(dependsOn: 'hello') << {
+    println "I'm Gradle"
+}
+
+intro.doFirst{
+  println "I won't tell you my name!"
+}
+
+task hello << {
+    println 'Hello world!'
+}
+
+task upper << {
+    String someString = 'thAleS'
+    println "Original: " + someString 
+    println "Upper case: " + someString.toUpperCase()
+}
+
+task count << {
+    10.times { print "$it " }
+}
+
+
+// try to do ->  gradle -q task1
+4.times { contador ->
+    task "task$contador" << {
+        println "I'm task number $contador"
+    }
+}
+
+// now try ->  gradle -q task0
+task0.dependsOn task2, task3
+
+
+// USING ANT TASKS
+task loadfile << {
+    def files = file('../antLoadfileResources').listFiles().sort()
+    files.each { File file ->
+        if (file.isFile()) {
+            ant.loadfile(srcFile: file, property: file.name)
+            println " *** $file.name ***"
+            println "${ant.properties[file.name]}"
+        }
+    }
+}
+
+
+// METHODS
+
+task checksum << {
+    fileList('../antLoadfileResources').each {File file ->
+        ant.checksum(file: file, property: "cs_$file.name")
+        println "$file.name Checksum: ${ant.properties["cs_$file.name"]}"
+    }
+}
+
+task loadfile2 << {
+    fileList('../antLoadfileResources').each {File file ->
+        ant.loadfile(srcFile: file, property: file.name)
+        println "I'm fond of $file.name"
+    }
+}
+
+File[] fileList(String dir) {
+    file(dir).listFiles({file -> file.isFile() } as FileFilter).sort()
+}
+
+
+// DEFINING VARIRABLES IF STATEMENTS
+
+task distribution << {
+    println "We build the zip with version=$version"
+}
+
+task release(dependsOn: 'distribution') << {
+    println 'We release now'
+}
+
+gradle.taskGraph.whenReady {taskGraph ->
+    if (taskGraph.hasTask(release)) {
+        version = '1.0'
+    } else {
+        version = '1.0-SNAPSHOT'
+    }
+}
