@@ -1,14 +1,18 @@
 travis-w-android-and-gradle
 ===========================
 
-Configuring an Eclipse Wizard generated project to be hosted on Travis, building and generating releases with gradle.
+--- 
+
+**Note: Configuring an Eclipse Wizard generated project to be hosted on Travis, building and generating releases with gradle.
+
+---
 
 To fork this project, some configuration is needed.
 
-First of all: 
-  - Install the android sdk: http://developer.android.com/sdk/index.html
+##First of all: 
 
-  - Add ANDROID_HOME to your enviroment variables (the sdk directory) or the sdk.dir to the project's local.properties
+- Install the android sdk: http://developer.android.com/sdk/index.html
+- Add ANDROID_HOME to your enviroment variables (the sdk directory) or the sdk.dir to the project's local.properties
 
 
 Ok, now you're allright to start using the project.
@@ -20,7 +24,7 @@ In your command line:
 
 See the results!
 
-Bibliography
+##Bibliography
 
 http://spring.io/guides/gs/gradle-android/
 
