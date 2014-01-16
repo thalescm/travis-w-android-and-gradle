@@ -1,5 +1,0 @@
-INDEX VERSION 1.126+/Users/indigo/Projects/travis-w-android-and-gradle/.metadata/.plugins/org.eclipse.jdt.core
-2914319284.index
-467623344.index
-1762647191.index
-1539266101.index
