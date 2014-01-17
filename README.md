@@ -1,7 +1,7 @@
 travis-w-android-and-gradle
 ===========================
 
-# Build Status
+## Build Status
 
 | Branch | Status |
 | :-------- | :-------- |
@@ -13,7 +13,7 @@ Configuring an Eclipse Wizard generated project to be hosted on Travis, building
 
 ---
 
-# TODO
+## TODO
 
 - ✔ build with gradle
 - ✔ build with jar dependencies
