@@ -4,9 +4,9 @@ env:
   matrix:
     - ANDROID_SDKS=android-19,sysimg-19  ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
 
-branches:
-  only: 
-    - android-develop-gradle-running-ok
+# branches:
+#   only: 
+#     - android-develop-gradle-running-ok
 before_install:
 
   - chmod +x gradlew
@@ -54,4 +54,4 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - gradle assembleDebug
+  - ./gradlew assembleDebug
