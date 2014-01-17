@@ -5,6 +5,7 @@ env:
   # - ANDROID_HOME="$PWD/android-sdk-linux"
   # - PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools"
   # Defining keystore envs and testflight envs
+  - TESTFLIGHT_DISTRIBUTION_LIST="internal"
   - secure: "BRSSKZgex7O1zig3o0KuI0IO8gU1Du0qWJaKZ/Tq1B1YNOTswFG+3BxTji0QoZRK1yi30RxZ9YjmJlBOFz5mSLiNbZCTfPFrh3OyuP8FZZAIbncGZw9RB1eYBrWiiEHyHvEdCoFWp4woXwAsPB3DfSO15U753fOhE5Omc8w8qa4="
   - secure: "CVkqc3FZY8R9+6biAdrMQsoAThmPNkopjyhUvruLabAxcnV7FRA0CAbt/6g0F/k2z7+pFg/1PyHJ96SayJBmXTBIeoiUmajL4bhFnbCN87zO3DWEPwoJ6pR37e1VzgEgXlPwR/ZPSnY+rmEwjb1oabPQblvIammpEJAxchPwOIE="
   - secure: "YGQwxyKpvXqT70rHTI7DgjhvoxnAFOtlhoGvdAMv5Xmt0S0b8T015+s1Jd6deJ32oJ4L6yT1/0aW/Nh8AmSOk6hiJHyFT3OTWcXhYeRu+u1SLb2DG/N2O6WBnM3kVejPz4lrvsx5JdYDWd76x3kjiyGWSDpJPAKp+zXanlC6YCs="
@@ -14,12 +15,16 @@ env:
   matrix:
     - ANDROID_SDKS=android-18,sysimg-18  ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a ANDROID_BUILD_TOOLS_VERSION=18.0.1 ANDROID_OS_VERSION=4.3 COMPILE_SDK_VERSION=18
 
-# branches:
-#   only: 
-#     - android-develop-gradle-running-ok
+branches:
+  only:
+  - /^android-.*$/
+
 before_install:
-  # scripts/before_install.sh
+  # Permissions
   - chmod +x gradlew
+  - chmod +x scripts/deploy.sh
+  - chmod +x scripts/wait_for_emulator.sh
+
   # Install base Android SDK
   - sudo apt-get update -qq
   - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
@@ -55,6 +60,8 @@ install:
 script:
   - ./gradlew -v
   - ./gradlew -i clean assemble
+
+  - scripts/deploy.sh
 
   # - curl "http://testflightapp.com/api/builds.json" 
   #   -F file=@"$TRAVIS_BUILD_DIR/MyFirstApp/build/apk/MyFirstApp-release.apk" 
