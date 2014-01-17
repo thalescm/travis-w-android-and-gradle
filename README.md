@@ -5,7 +5,7 @@ travis-w-android-and-gradle
 
 | Branch | Status |
 | :-------- | :-------- |
-| develop |  [![Build Status](https://travis-ci.org/thalescm/travis-w-android-and-gradle.png?branch=android-develop-gradle-running-ok)](https://travis-ci.org/thalescm/travis-w-android-and-gradle) |
+| develop |  [![Build Status](https://travis-ci.org/thalescm/travis-w-android-and-gradle.png?branch=master)](https://travis-ci.org/thalescm/travis-w-android-and-gradle) |
 
 --- 
 
