@@ -4,6 +4,10 @@ env:
   global:
   - secure: "BRSSKZgex7O1zig3o0KuI0IO8gU1Du0qWJaKZ/Tq1B1YNOTswFG+3BxTji0QoZRK1yi30RxZ9YjmJlBOFz5mSLiNbZCTfPFrh3OyuP8FZZAIbncGZw9RB1eYBrWiiEHyHvEdCoFWp4woXwAsPB3DfSO15U753fOhE5Omc8w8qa4="
   - secure: "CVkqc3FZY8R9+6biAdrMQsoAThmPNkopjyhUvruLabAxcnV7FRA0CAbt/6g0F/k2z7+pFg/1PyHJ96SayJBmXTBIeoiUmajL4bhFnbCN87zO3DWEPwoJ6pR37e1VzgEgXlPwR/ZPSnY+rmEwjb1oabPQblvIammpEJAxchPwOIE="
+  - secure: "YGQwxyKpvXqT70rHTI7DgjhvoxnAFOtlhoGvdAMv5Xmt0S0b8T015+s1Jd6deJ32oJ4L6yT1/0aW/Nh8AmSOk6hiJHyFT3OTWcXhYeRu+u1SLb2DG/N2O6WBnM3kVejPz4lrvsx5JdYDWd76x3kjiyGWSDpJPAKp+zXanlC6YCs="
+  - secure: "HjMED6O4QOIwdXH9CjJi2PaTVQF79QtV0MX8tAYOlFzQG/wHeeFJeYysF00PjILPPUOBTTySJIvY0+jvewvXPNcgHUCH6GmhVs93+3KU9GpHXLWoJ+aBfCN4DxII12EhebadvUZnN4RWsEPzRl6vk6SdiCyAIvJp3f/tfpG5JY8="
+  - secure: "OcrhIxtGr2OGLIgXEEAAE4TcFDgIimHdFqipp+RW3vcLvRtMgYyxSVzt/wAW1BA3UiwT+5LhNguzvWjdrFDfakd0bOwVkW3eF9Sc9vLdXkPcxDCg/HDn1thsSUqyUxG5ZUgzDK6txL7A/3UcuUDaV8bQm4XshnqU/peMr7xuPjw="
+  - secure: "IqpElw2j3jCJDz7xgFeGpvVNvlW8VGdo28y0ndBkwuf3B2/6TFmUK48jrCu276KJofjIn00oVYrUzEx/vg//tUsoy9eJaDxn4D7rh++v2tz+QjrDtbWXIjfOrVWKmBful405emoyw4l5odFTyCmZEbesuCgHs93Sn5UAcTnDNcA="
   matrix:
     - ANDROID_SDKS=android-18,sysimg-18  ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a ANDROID_BUILD_TOOLS_VERSION=18.0.1 ANDROID_OS_VERSION=4.3 COMPILE_SDK_VERSION=18
 
@@ -30,11 +34,10 @@ before_install:
   - export PATH=${PATH}:${ANDROID_HOME}/build-tools
 
   # Defining keystore envs
-  # - export KEYSTORE="myfirstapp.keystore"
-  # - export KEYSTORE_PASSWORD="123456"
-  # - export KEY_ALIAS="testapp"
-  # - export KEY_PASSWORD="123456"
-
+  - export $KEYSTORE
+  - export $KEYSTORE_PASSWORD
+  - export $KEY_ALIAS
+  - export $KEY_PASSWORD
 
   #- android list sdk -a -e
   - echo "y" | android update sdk --filter platform-tool,tool --no-ui --force > /dev/null
@@ -64,4 +67,3 @@ script:
     -F notify=True 
     -F distribution_lists="Internal"
 
-    
