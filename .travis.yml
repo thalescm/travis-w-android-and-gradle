@@ -3,7 +3,13 @@ jdk: oraclejdk7
 env:
   matrix:
     - ANDROID_SDKS=android-19,sysimg-19  ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+
+branches:
+  only: 
+    - android-develop-gradle-running-ok
 before_install:
+
+  - chmod +x gradlew
   # Install base Android SDK
   - sudo apt-get update -qq
   - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
@@ -12,23 +18,17 @@ before_install:
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
-  # Defining keystore envs
-  - export KEYSTORE="myfirstapp.keystore"
-  - export KEYSTORE_PASSWORD="123456"
-  - export KEY_ALIAS="testapp"
-  - export KEY_PASSWORD="123456"
-
-  # Gradle
-  - wget http://services.gradle.org/distributions/gradle-1.8-bin.zip
-  - unzip gradle-1.8-bin.zip
-  - export GRADLE_HOME=$PWD/gradle-1.8
-  - export PATH=$GRADLE_HOME/bin:$PATH
-
   # install android build tools
   - wget https://dl-ssl.google.com/android/repository/build-tools_r19-linux.zip
   - unzip build-tools_r19-linux.zip -d $ANDROID_HOME
   - mkdir -p $ANDROID_HOME/build-tools/
   - mv $ANDROID_HOME/android-4.4 $ANDROID_HOME/build-tools/19
+
+  # Defining keystore envs
+  # - export KEYSTORE="myfirstapp.keystore"
+  # - export KEYSTORE_PASSWORD="123456"
+  # - export KEY_ALIAS="testapp"
+  # - export KEY_PASSWORD="123456"
 
   # Install required components.
   # For a full list, run `android list sdk -a --extended`
@@ -45,10 +45,13 @@ before_install:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
 
+install:
+  - true
+
 before_script:
-  - chmod +x ci/wait_for_emulator.sh
-  - ci/wait_for_emulator.sh
+  - chmod +x scripts/wait_for_emulator.sh
+  - scripts/wait_for_emulator.sh
   - adb shell input keyevent 82 &
 
 script:
-  - gradle connectedInstrumentTest
+  - gradle assembleDebug
