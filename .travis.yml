@@ -1,8 +1,11 @@
 language: java
 jdk: oraclejdk7
 env:
+  global:
+  - secure: "BRSSKZgex7O1zig3o0KuI0IO8gU1Du0qWJaKZ/Tq1B1YNOTswFG+3BxTji0QoZRK1yi30RxZ9YjmJlBOFz5mSLiNbZCTfPFrh3OyuP8FZZAIbncGZw9RB1eYBrWiiEHyHvEdCoFWp4woXwAsPB3DfSO15U753fOhE5Omc8w8qa4="
+  - secure: "CVkqc3FZY8R9+6biAdrMQsoAThmPNkopjyhUvruLabAxcnV7FRA0CAbt/6g0F/k2z7+pFg/1PyHJ96SayJBmXTBIeoiUmajL4bhFnbCN87zO3DWEPwoJ6pR37e1VzgEgXlPwR/ZPSnY+rmEwjb1oabPQblvIammpEJAxchPwOIE="
   matrix:
-    - ANDROID_SDKS=android-18,sysimg-18  ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a ANDROID_BUILD_TOOLS_VERSION=18.0.1 ANDROID_OS_VERSION=4.3
+    - ANDROID_SDKS=android-18,sysimg-18  ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a ANDROID_BUILD_TOOLS_VERSION=18.0.1 ANDROID_OS_VERSION=4.3 COMPILE_SDK_VERSION=18
 
 # branches:
 #   only: 
@@ -52,3 +55,13 @@ install:
 script:
   - ./gradlew -v
   - ./gradlew -i clean assemble
+
+  - curl "http://testflightapp.com/api/builds.json" 
+    -F file=@"$TRAVIS_BUILD_DIR/MyFirstApp/build/apk/MyFirstApp-release.apk" 
+    -F api_token=$TESTFLIGHT_API_TOKEN 
+    -F team_token=$TESTFLIGHT_TEAM_TOKEN 
+    -F notes="Build by Travis CI" 
+    -F notify=True 
+    -F distribution_lists="Internal"
+
+    
