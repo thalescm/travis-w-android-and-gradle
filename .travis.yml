@@ -12,6 +12,12 @@ before_install:
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
+  # Defining keystore envs
+  - export KEYSTORE="myfirstapp.keystore"
+  - export KEYSTORE_PASSWORD="123456"
+  - export KEY_ALIAS="testapp"
+  - export KEY_PASSWORD="123456"
+
   # Gradle
   - wget http://services.gradle.org/distributions/gradle-1.8-bin.zip
   - unzip gradle-1.8-bin.zip
