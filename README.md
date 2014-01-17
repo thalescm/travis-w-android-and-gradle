@@ -7,29 +7,25 @@ travis-w-android-and-gradle
 | :-------- | :-------- |
 | develop |  [![Build Status](https://travis-ci.org/thalescm/travis-w-android-and-gradle.png?branch=android-develop-gradle-running-ok)](https://travis-ci.org/thalescm/travis-w-android-and-gradle) |
 
-
 --- 
 
 Configuring an Eclipse Wizard generated project to be hosted on Travis, building and generating releases with gradle.
 
 ---
 
-To fork this project, some configuration is needed.
+# TODO
 
-##First of all: 
-
-- Install the android sdk: http://developer.android.com/sdk/index.html
-- Add ANDROID_HOME to your enviroment variables (the sdk directory) or the sdk.dir to the project's local.properties
-
-
-Ok, now you're allright to start using the project.
-
-You don't need to have gradle installed. To do any gradle task, just use the wrapper.
-In your command line:
-
-        ./gradlew <the task>
-
-See the results!
+- ✔ build with gradle
+- ✔ build with jar dependencies
+- ✔ build with third-party-libraries dependencies
+- ✔ integrate with travis
+- ✔ code sign
+- ✔ deploy / upload to Test flight
+- ✔ encrypt all important data
+- add version control to build.gradle
+- add tests and test with travis
+- configure when to deploy
+- build for release only in the case above
 
 ##Bibliography
 
