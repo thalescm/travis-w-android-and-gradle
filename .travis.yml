@@ -2,7 +2,7 @@ language: java
 jdk: oraclejdk7
 env:
   matrix:
-    - ANDROID_SDKS=android-18,sysimg-18  ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a
+    - ANDROID_SDKS=android-18,sysimg-18  ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a ANDROID_BUILD_TOOLS_VERSION=18.0.1 ANDROID_OS_VERSION=4.3
 
 # branches:
 #   only: 
@@ -18,11 +18,13 @@ before_install:
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
-  # install android build tools
-  - wget https://dl-ssl.google.com/android/repository/build-tools_r19-linux.zip
-  - unzip build-tools_r19-linux.zip -d $ANDROID_HOME
+
+  # Install Android build tools
+  - wget https://dl-ssl.google.com/android/repository/build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip
+  - unzip build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip -d $ANDROID_HOME
   - mkdir -p $ANDROID_HOME/build-tools/
-  - mv $ANDROID_HOME/android-4.4 $ANDROID_HOME/build-tools/19
+  - mv $ANDROID_HOME/android-$ANDROID_OS_VERSION $ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION
+  - export PATH=${PATH}:${ANDROID_HOME}/build-tools
 
   # Defining keystore envs
   # - export KEYSTORE="myfirstapp.keystore"
@@ -30,16 +32,10 @@ before_install:
   # - export KEY_ALIAS="testapp"
   # - export KEY_PASSWORD="123456"
 
-  # Install required components.
-  # For a full list, run `android list sdk -a --extended`
-  # Note that sysimg-18 downloads the ARM, x86 and MIPS images (we should optimize this).
-  # Other relevant API's
-  - echo yes | android update sdk --filter platform-tools --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter android-18 --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter android-19 --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter sysimg-19 --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-support --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
+
+  #- android list sdk -a -e
+  - echo "y" | android update sdk --filter platform-tool,tool --no-ui --force > /dev/null
+  - echo "y" | android update sdk --filter $ANDROID_SDKS --no-ui --force > /dev/null
 
   # Create and start emulator
   # - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
@@ -55,4 +51,4 @@ install:
 
 script:
   - ./gradlew -v
-  - ./gradlew assembleDebug --info --stacktrace
+  - ./gradlew -i clean assemble
