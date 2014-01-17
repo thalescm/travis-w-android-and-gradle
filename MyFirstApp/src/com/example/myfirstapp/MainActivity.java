@@ -29,25 +29,25 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-
-		showError("My god, it works!");
 		
-		get("https://m.extra.com.br/catalogo/v1/departamentos", new RequestParams(), new ResourceParserHandler() {
+		get("http://m.extra.com.br/catalogo/v1/departamentos", new RequestParams(), new ResourceParserHandler() {
 
 			@Override
 			public void onSuccess(Object resource) {
 				Log.v("ACTIVITY","GOT DATA");
+				showError("My god, it works!");
 			}
 
 			@Override
 			public void onFailure(Throwable e) {
 				Log.v("ACTIVITY","DIDINT GOT DATA");
+				showError("Not even close dude!!");
 				
 			}
 
 			@Override
 			public void onFailure(Throwable e, String errorMessage) {
-				Log.v("ACTIVITY","DIDINT GOT DATA");
+				Log.v("ACTIVITY",errorMessage);
 				
 			}
 			
@@ -63,8 +63,6 @@ public class MainActivity extends Activity {
 		
 		TextView textView = (TextView) view
 				.findViewById(R.id.error_message_text_view);
-		
-		error = this.getResources().getString(R.string.jose);
 		textView.setText(error);
 
 		Configuration CONFIGURATION_INFINITE = new Configuration.Builder()
