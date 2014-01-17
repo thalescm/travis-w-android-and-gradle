@@ -18,6 +18,7 @@ env:
 branches:
   only:
   - /^android-.*$/
+  - master
 
 before_install:
   # Permissions
