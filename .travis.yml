@@ -2,8 +2,8 @@ language: java
 jdk: oraclejdk7
 env:
   global:
-  # - ANDROID_HOME="$PWD/android-sdk-linux"
-  # - PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools"
+  - ANDROID_HOME="$PWD/android-sdk-linux"
+  - PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools"
   # Defining keystore envs and testflight envs
   - TESTFLIGHT_DISTRIBUTION_LIST="internal"
   - secure: "BRSSKZgex7O1zig3o0KuI0IO8gU1Du0qWJaKZ/Tq1B1YNOTswFG+3BxTji0QoZRK1yi30RxZ9YjmJlBOFz5mSLiNbZCTfPFrh3OyuP8FZZAIbncGZw9RB1eYBrWiiEHyHvEdCoFWp4woXwAsPB3DfSO15U753fOhE5Omc8w8qa4="
@@ -25,41 +25,44 @@ before_install:
   - chmod +x gradlew
   - chmod +x scripts/deploy.sh
   - chmod +x scripts/wait_for_emulator.sh
+  - chmod +x scripts/install.sh
 
-  # Install base Android SDK
-  - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
-  - wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz
-  - tar xzf android-sdk_r22.3-linux.tgz
-  - export ANDROID_HOME=$PWD/android-sdk-linux
-  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+  - scripts/install.sh
+  # # Install base Android SDK
+  # - sudo apt-get update -qq
+  # - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
+  # - wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz
+  # - tar xzf android-sdk_r22.3-linux.tgz
+  # - export ANDROID_HOME=$PWD/android-sdk-linux
+  # - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
 
-  # Install Android build tools
-  - wget https://dl-ssl.google.com/android/repository/build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip
-  - unzip build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip -d $ANDROID_HOME
-  - mkdir -p $ANDROID_HOME/build-tools/
-  - mv $ANDROID_HOME/android-$ANDROID_OS_VERSION $ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION
-  - export PATH=${PATH}:${ANDROID_HOME}/build-tools
+  # # Install Android build tools
+  # - wget https://dl-ssl.google.com/android/repository/build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip
+  # - unzip build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip -d $ANDROID_HOME
+  # - mkdir -p $ANDROID_HOME/build-tools/
+  # - mv $ANDROID_HOME/android-$ANDROID_OS_VERSION $ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION
+  # - export PATH=${PATH}:${ANDROID_HOME}/build-tools
 
-  #- android list sdk -a -e
-  - echo "y" | android update sdk --filter platform-tool,tool --no-ui --force > /dev/null
-  - echo "y" | android update sdk --filter $ANDROID_SDKS --no-ui --force > /dev/null
+  # # #- android list sdk -a -e
+  # # - echo "y" | android update sdk --filter platform-tool,tool --no-ui --force > /dev/null
+  # # - echo "y" | android update sdk --filter $ANDROID_SDKS --no-ui --force > /dev/null
 
-  # Create and start emulator
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
+  # # # Create and start emulator
+  # # - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  # # - emulator -avd test -no-skin -no-audio -no-window &
 
 install:
   - true
 
-before_script:
-  - scripts/wait_for_emulator.sh
-  - adb shell input keyevent 82 &
+# before_script:
+#   - scripts/wait_for_emulator.sh
+#   - adb shell input keyevent 82 &
 
 script:
   - ./gradlew -v
   - ./gradlew -i clean build MyFirstApp:connectedInstrumentTest
 
+after_success:
   - scripts/deploy.sh
 
