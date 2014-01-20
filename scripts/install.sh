@@ -10,7 +10,7 @@ tar xzf android-sdk_r22.3-linux.tgz;
 # $PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools;
 
 
-Install Android build tools;
+# Install Android build tools;
 wget https://dl-ssl.google.com/android/repository/build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip;
 unzip build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip -d $ANDROID_HOME;
 mkdir -p $ANDROID_HOME/build-tools/;
