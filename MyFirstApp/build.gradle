@@ -19,7 +19,6 @@ android {
 
     defaultConfig {
         testPackageName "com.example.myfirstapp.test"
-        testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
 
     sourceSets {
@@ -32,8 +31,15 @@ android {
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
         }
-
-        instrumentTest.setRoot('./../MyFirstAppTest')
+        
+        instrumentTest {
+            java.srcDirs = ['$rootDir/MyFirstAppTest/src']
+            manifest.srcFile file('$rootDir/MyFirstAppTest/AndroidManifest.xml')
+            java.srcDirs = ['$rootDir/MyFirstAppTest/src']
+            resources.srcDirs = ['$rootDir/MyFirstAppTest/src']
+            res.srcDirs = ['$rootDir/MyFirstAppTest/res']
+            assets.srcDirs = ['$rootDir/MyFirstAppTest/assets']
+        }
     }
     
     signingConfigs {
@@ -51,5 +57,3 @@ android {
         }
     }
 }
-
-

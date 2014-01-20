@@ -59,7 +59,7 @@ before_script:
 
 script:
   - ./gradlew -v
-  - ./gradlew -i clean assemble
+  - ./gradlew -i clean build MyFirstApp:connectedInstrumentTest
 
-  # - scripts/deploy.sh
+  - scripts/deploy.sh
 
