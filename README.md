@@ -5,7 +5,7 @@ travis-w-android-and-gradle
 
 | Branch | Status |
 | :-------- | :-------- |
-| develop |  [![Build Status](https://travis-ci.org/thalescm/travis-w-android-and-gradle.png?branch=master)](https://travis-ci.org/thalescm/travis-w-android-and-gradle) |
+| master |  [![Build Status](https://travis-ci.org/thalescm/travis-w-android-and-gradle.png?branch=master)](https://travis-ci.org/thalescm/travis-w-android-and-gradle) |
 
 --- 
 
@@ -22,14 +22,15 @@ Configuring an Eclipse Wizard generated project to be hosted on Travis, building
 - ✔ code sign
 - ✔ deploy / upload to Test flight
 - ✔ encrypt all important data
+- ✔ add tests and test with travis
+- ✔ configure when to deploy
 - add version control to build.gradle
-- add tests and test with travis
-- configure when to deploy
-- build for release only in the case above
 
 ##Bibliography
 
 http://spring.io/guides/gs/gradle-android/
 
 http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Multi-project-setup
+
+http://www.vogella.com/tutorials/AndroidTesting/article.html
 
