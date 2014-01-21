@@ -2,6 +2,8 @@ language: java
 jdk: oraclejdk7
 env:
   global:
+  - ANDROID_HOME="$PWD/android-sdk-linux"
+  - PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools"
   - TESTFLIGHT_DISTRIBUTION_LIST="internal"
   # Defining keystore envs and testflight envs
   - secure: "BRSSKZgex7O1zig3o0KuI0IO8gU1Du0qWJaKZ/Tq1B1YNOTswFG+3BxTji0QoZRK1yi30RxZ9YjmJlBOFz5mSLiNbZCTfPFrh3OyuP8FZZAIbncGZw9RB1eYBrWiiEHyHvEdCoFWp4woXwAsPB3DfSO15U753fOhE5Omc8w8qa4="
