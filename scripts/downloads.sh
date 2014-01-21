@@ -19,4 +19,4 @@ mv $ANDROID_HOME/android-$ANDROID_OS_VERSION $ANDROID_HOME/build-tools/$ANDROID_
 
 echo "LOOK HERE +++++++++++++++++++++++++++++++++++"
 echo "LOOK HERE +++++++++++++++++++++++++++++++++++"
-ls $PWD/android-sdk-linux/SDK
+ls $PWD/android-sdk-linux/
