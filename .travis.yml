@@ -2,8 +2,6 @@ language: java
 jdk: oraclejdk7
 env:
   global:
-  - ANDROID_HOME="$PWD/android-sdk-linux"
-  - PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools"
   - TESTFLIGHT_DISTRIBUTION_LIST="internal"
   # Defining keystore envs and testflight envs
   - secure: "BRSSKZgex7O1zig3o0KuI0IO8gU1Du0qWJaKZ/Tq1B1YNOTswFG+3BxTji0QoZRK1yi30RxZ9YjmJlBOFz5mSLiNbZCTfPFrh3OyuP8FZZAIbncGZw9RB1eYBrWiiEHyHvEdCoFWp4woXwAsPB3DfSO15U753fOhE5Omc8w8qa4="
@@ -30,7 +28,8 @@ before_install:
 
   - scripts/downloads.sh
 
-  # - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+  # - export ANDROID_HOME=$PWD/android-sdk-linux
+  # - export PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools"
 
 
   # # Install base Android SDK
@@ -38,7 +37,6 @@ before_install:
   # - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
   # - wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz
   # - tar xzf android-sdk_r22.3-linux.tgz
-  # - export ANDROID_HOME=$PWD/android-sdk-linux
 
 
   # # Install Android build tools
