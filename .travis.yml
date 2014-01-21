@@ -25,10 +25,10 @@ before_install:
   - chmod +x gradlew
   - chmod +x scripts/deploy.sh
   - chmod +x scripts/wait_for_emulator.sh
-  - chmod +x scripts/before_install.sh
+  - chmod +x scripts/downloads.sh
   - chmod +x scripts/test.sh
 
-  - scripts/before_install.sh
+  - scripts/downloads.sh
 
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
