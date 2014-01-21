@@ -61,7 +61,7 @@ install:
 
 script:
   - ./gradlew -v
-  - ./gradlew -i clean build MyFirstApp:connectedInstrumentTest
+  - ./gradlew -i clean build
 
 after_success:
   - scripts/deploy.sh
