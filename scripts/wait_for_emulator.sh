@@ -14,4 +14,8 @@ until [[ "$bootanim" =~ "stopped" ]]; do
    fi
    sleep 1
 done
+
+# Accessing emulator menu (exiting possible applications)  
+adb shell input keyevent 82 &
+
 echo "Done"
