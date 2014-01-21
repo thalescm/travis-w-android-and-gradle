@@ -18,8 +18,8 @@ mv $ANDROID_HOME/android-$ANDROID_OS_VERSION $ANDROID_HOME/build-tools/$ANDROID_
 # $PATH=${PATH}:${ANDROID_HOME}/build-tools;
 
   # #- android list sdk -a -e
-echo "y" | android update sdk --filter platform-tool,tool --no-ui --force > /dev/null;
-echo "y" | android update sdk --filter $ANDROID_SDKS --no-ui --force > /dev/null;
+echo "y" | $PWD/android-sdk-linux/android update sdk --filter platform-tool,tool --no-ui --force > /dev/null;
+echo "y" | $PWD/android-sdk-linux/android update sdk --filter $ANDROID_SDKS --no-ui --force > /dev/null;
 
   # # Create and start emulator
   # - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
