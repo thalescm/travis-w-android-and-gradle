@@ -16,7 +16,3 @@ unzip build-tools_r$ANDROID_BUILD_TOOLS_VERSION-linux.zip -d $ANDROID_HOME;
 mkdir -p $ANDROID_HOME/build-tools/;
 mv $ANDROID_HOME/android-$ANDROID_OS_VERSION $ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION;
 # $PATH=${PATH}:${ANDROID_HOME}/build-tools;
-
-echo "LOOK HERE +++++++++++++++++++++++++++++++++++"
-echo "LOOK HERE +++++++++++++++++++++++++++++++++++"
-ls $PWD/android-sdk-linux/
