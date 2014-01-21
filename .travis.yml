@@ -4,8 +4,8 @@ env:
   global:
   - ANDROID_HOME="$PWD/android-sdk-linux"
   - PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools"
-  # Defining keystore envs and testflight envs
   - TESTFLIGHT_DISTRIBUTION_LIST="internal"
+  # Defining keystore envs and testflight envs
   - secure: "BRSSKZgex7O1zig3o0KuI0IO8gU1Du0qWJaKZ/Tq1B1YNOTswFG+3BxTji0QoZRK1yi30RxZ9YjmJlBOFz5mSLiNbZCTfPFrh3OyuP8FZZAIbncGZw9RB1eYBrWiiEHyHvEdCoFWp4woXwAsPB3DfSO15U753fOhE5Omc8w8qa4="
   - secure: "CVkqc3FZY8R9+6biAdrMQsoAThmPNkopjyhUvruLabAxcnV7FRA0CAbt/6g0F/k2z7+pFg/1PyHJ96SayJBmXTBIeoiUmajL4bhFnbCN87zO3DWEPwoJ6pR37e1VzgEgXlPwR/ZPSnY+rmEwjb1oabPQblvIammpEJAxchPwOIE="
   - secure: "YGQwxyKpvXqT70rHTI7DgjhvoxnAFOtlhoGvdAMv5Xmt0S0b8T015+s1Jd6deJ32oJ4L6yT1/0aW/Nh8AmSOk6hiJHyFT3OTWcXhYeRu+u1SLb2DG/N2O6WBnM3kVejPz4lrvsx5JdYDWd76x3kjiyGWSDpJPAKp+zXanlC6YCs="
@@ -25,16 +25,20 @@ before_install:
   - chmod +x gradlew
   - chmod +x scripts/deploy.sh
   - chmod +x scripts/wait_for_emulator.sh
-  - chmod +x scripts/install.sh
+  - chmod +x scripts/before_install.sh
+  - chmod +x scripts/test.sh
 
-  - scripts/install.sh
+  - scripts/before_install.sh
+
+  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+
+
   # # Install base Android SDK
   # - sudo apt-get update -qq
   # - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
   # - wget http://dl.google.com/android/android-sdk_r22.3-linux.tgz
   # - tar xzf android-sdk_r22.3-linux.tgz
   # - export ANDROID_HOME=$PWD/android-sdk-linux
-  # - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
 
   # # Install Android build tools
@@ -53,11 +57,13 @@ before_install:
   # # - emulator -avd test -no-skin -no-audio -no-window &
 
 install:
-  - true
+  # Starting emulator
+  - scripts/test.sh
 
-# before_script:
-#   - scripts/wait_for_emulator.sh
-#   - adb shell input keyevent 82 &
+
+before_script:
+  - scripts/wait_for_emulator.sh
+  - adb shell input keyevent 82 &
 
 script:
   - ./gradlew -v
