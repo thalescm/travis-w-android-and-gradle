@@ -65,7 +65,7 @@ before_script:
 
 script:
   - ./gradlew -v
-  - ./gradlew clean build
+  - ./gradlew -i clean build
 
 after_success:
   - scripts/deploy.sh
